@@ -10,6 +10,7 @@ import {
 	PREMIUM_PRODUCT_NAME,
 	STATIC_IMAGE_FORMATS,
 } from '@app/features/app/config/I18nDisplayConstants';
+import {GlobalLimits} from '@app/features/app/utils/GlobalLimits';
 import {LimitResolver} from '@app/features/app/utils/LimitResolverAdapter';
 import {isLimitToggleEnabled} from '@app/features/app/utils/LimitUtils';
 import type {Gif} from '@app/features/expressions/commands/GifCommands';
@@ -174,7 +175,7 @@ export const AvatarUploader = observer(
 		);
 		const processAvatarFile = useCallback(
 			async (file: File) => {
-				if (file.size > 10 * 1024 * 1024) {
+				if (file.size > GlobalLimits.getAvatarMaxSize()) {
 					showUserErrorModal(
 						i18n._(COULDN_T_UPLOAD_AVATAR_DESCRIPTOR),
 						i18n._(AVATAR_FILE_IS_TOO_LARGE_PLEASE_CHOOSE_A_DESCRIPTOR, {
